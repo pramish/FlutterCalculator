@@ -28,27 +28,23 @@ class _CalculatorWidgetState extends State<CalculatorWidget> {
   int firstNumber = 0;
   int secondNumber = 0;
   int finalNumber = 0;
-  void addNumber() {
-    setState(() {
-      finalNumber = firstNumber + secondNumber;
-    });
-  }
 
-  void subtractNumber() {
+  void operatorPressed(String sign) {
     setState(() {
-      finalNumber = firstNumber - secondNumber;
-    });
-  }
-
-  void multiplyNumber() {
-    setState(() {
-      finalNumber = firstNumber * secondNumber;
-    });
-  }
-
-  void divideNumber() {
-    setState(() {
-      finalNumber = firstNumber ~/ secondNumber;
+      switch (sign) {
+        case "+":
+          finalNumber = firstNumber + secondNumber;
+          break;
+        case "-":
+          finalNumber = firstNumber - secondNumber;
+          break;
+        case "/":
+          finalNumber = firstNumber ~/ secondNumber;
+          break;
+        case "x":
+          finalNumber = firstNumber * secondNumber;
+          break;
+      }
     });
   }
 
@@ -56,8 +52,8 @@ class _CalculatorWidgetState extends State<CalculatorWidget> {
     setState(() {
       finalNumber = 0;
       var number = new Random();
-      firstNumber = number.nextInt(1000);
-      secondNumber = number.nextInt(1000);
+      firstNumber = number.nextInt(100);
+      secondNumber = number.nextInt(100);
     });
   }
 
@@ -93,22 +89,22 @@ class _CalculatorWidgetState extends State<CalculatorWidget> {
                 children: <Widget>[
                   IconButton(
                     icon: Icon(Icons.add),
-                    onPressed: addNumber,
+                    onPressed: () => operatorPressed("+"),
                     tooltip: "Add two numbers",
                   ),
                   IconButton(
                     icon: Icon(Icons.access_alarm),
-                    onPressed: divideNumber,
+                    onPressed: () => operatorPressed("/"),
                     tooltip: "Divide two numbers",
                   ),
                   IconButton(
                     icon: Icon(Icons.remove),
-                    onPressed: subtractNumber,
+                    onPressed: () => operatorPressed("-"),
                     tooltip: "Subtract two numbers",
                   ),
                   IconButton(
                     icon: Icon(Icons.close),
-                    onPressed: multiplyNumber,
+                    onPressed: () => operatorPressed("x"),
                     tooltip: "Multiple two numbers",
                   ),
                 ],
